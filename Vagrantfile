@@ -90,7 +90,7 @@ Vagrant.configure(2) do |config|
      sudo apt-get install -y libmagickwand-dev # rmagick, imagemagick
      sudo apt-get install -y libpq-dev postgresql-client-common     # postgres
      sudo apt-get install -y libmysqlclient-dev mysql-client
-
+     sudo apt-get install -y libgsl0-dev  # sciencey text for jekyll
 
      git config --global alias.co checkout
      git config --global alias.st status

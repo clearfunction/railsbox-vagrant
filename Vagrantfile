@@ -79,6 +79,9 @@ Vagrant.configure(2) do |config|
      # databases
      sudo apt-get install -y postgresql mysql-server redis-server fish
 
+     # requirements for asset stuff
+     sudo apt-get install -y nodejs npm
+
      # shell convenience
      sudo apt-get install -y tmux tree silversearcher-ag htop aptitude
 

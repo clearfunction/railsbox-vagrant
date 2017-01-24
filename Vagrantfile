@@ -57,7 +57,7 @@ Vagrant.configure(2) do |config|
      #vb.gui = true
   
      # Customize the amount of memory on the VM:
-     vb.memory = "1024"
+     vb.memory = "4096"
    end
   #
   # View the documentation for the provider you are using for more
@@ -76,11 +76,24 @@ Vagrant.configure(2) do |config|
   config.vm.provision "shell", inline: <<-SHELL
      sudo apt-get update
 
-     # databases
-     sudo apt-get install -y postgresql mysql-server redis-server fish
+     sudo apt-get -f install
 
-     # requirements for asset stuff
+     # databases
+     sudo apt-get install -y redis-server fish
+     sudo add-apt-repository "deb https://apt.postgresql.org/pub/repos/apt trusty-pgdg main"
+     wget --quiet -O - https://postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add - 
+     sudo apt-get update
+     sudo apt-get install postgresql-9.4
+
+
+	# easy rails db logins
+     sudo -u postgres createuser -s -w vagrant
+
+     # node is good
+     curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+     sudo apt-get install -y nodejssudo apt-get install nodejs
      sudo apt-get install -y nodejs npm
+     sudo npm install -g yarn
 
      # shell convenience
      sudo apt-get install -y tmux tree silversearcher-ag htop aptitude
@@ -92,7 +105,7 @@ Vagrant.configure(2) do |config|
      # dev headers
      sudo apt-get install -y libmagickwand-dev # rmagick, imagemagick
      sudo apt-get install -y libpq-dev postgresql-client-common     # postgres
-     sudo apt-get install -y libmysqlclient-dev mysql-client
+     #sudo apt-get install -y libmysqlclient-dev mysql-client
      sudo apt-get install -y libgsl0-dev  # sciencey text for jekyll
 
      git config --global alias.co checkout
